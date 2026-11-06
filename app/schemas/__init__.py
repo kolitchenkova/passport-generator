@@ -5,6 +5,8 @@ from .schemas import (
     GenerationLogRead,
     ParameterCreate,
     ParameterRead,
+    PassportGenerateRequest,
+    PassportGenerateResponse,
     ProductCreate,
     ProductDetailRead,
     ProductParameterRead,
@@ -30,4 +32,6 @@ __all__ = [
     "TemplateCreate",
     "TemplateRead",
     "GenerationLogRead",
+    "PassportGenerateRequest",
+    "PassportGenerateResponse",
 ]
