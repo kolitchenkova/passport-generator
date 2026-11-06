@@ -4,7 +4,7 @@ import time
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
-from app.api import categories, parameters, products, templates
+from app.api import categories, parameters, passports, products, templates
 from app.core.config import settings
 
 logging.basicConfig(
@@ -42,6 +42,7 @@ app.include_router(categories.router, prefix="/api/v1")
 app.include_router(parameters.router, prefix="/api/v1")
 app.include_router(products.router, prefix="/api/v1")
 app.include_router(templates.router, prefix="/api/v1")
+app.include_router(passports.router, prefix="/api/v1")
 
 
 @app.get("/", include_in_schema=False)
