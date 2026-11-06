@@ -1,0 +1,24 @@
+# Виртуальное окружение
+.venv/
+venv/
+
+# Кэш Python
+__pycache__/
+*.py[cod]
+
+# Секреты и локальные переменные
+.env
+
+# Тесты и покрытие
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Сгенерированные файлы 
+data/generated/*
+!data/generated/.gitkeep
+
+# Служебные файлы ОС и редакторов
+.DS_Store
+Thumbs.db
+.vscode/
