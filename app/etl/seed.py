@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from sqlalchemy import delete
+from sqlalchemy import text
 
 from app.core.db import async_session_maker
 from app.models import (
@@ -20,14 +20,14 @@ logger = logging.getLogger("seed")
 async def seed_database() -> None:
     """Наполнение базы данных реалистичными демонстрационными данными."""
     async with async_session_maker() as session:
-        logger.info("Очистка существующих данных перед заполнением...")
-        # Удаляем в порядке, обратном внешним ключам
-        await session.execute(delete(GenerationLog))
-        await session.execute(delete(ProductParameter))
-        await session.execute(delete(Product))
-        await session.execute(delete(Template))
-        await session.execute(delete(Parameter))
-        await session.execute(delete(Category))
+        logger.info("Очистка таблиц и сброс последовательностей ID в 1...")
+        # TRUNCATE с RESTART IDENTITY очищает таблицы и сбрасывает счетчики автоинкремента на 1
+        await session.execute(
+            text(
+                "TRUNCATE TABLE generation_log, product_parameters, products, "
+                "templates, parameters, categories RESTART IDENTITY CASCADE;"
+            )
+        )
         await session.commit()
 
         # ---------------------------------------------------------------------
