@@ -88,9 +88,7 @@ async def test_full_etl_import_flow_and_idempotence(db_session: AsyncSession):
         assert stats1["categories_created"] == 1
 
         # Проверяем записи в базе данных
-        prod = (
-            await db_session.scalars(select(Product).where(Product.sku == "ETL-001"))
-        ).first()
+        prod = (await db_session.scalars(select(Product).where(Product.sku == "ETL-001"))).first()
         assert prod is not None
         assert prod.name == "Тестовый свет 1"
 
