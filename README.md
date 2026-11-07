@@ -72,7 +72,7 @@ cp .env.example .env
 
 1. Клонируйте репозиторий:
 ```bash
-git clone https://github.com/lotov/passport-generator.git
+git clone https://github.com/kolitchenkova/passport-generator.git
 cd passport-generator
 ```
 
