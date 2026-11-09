@@ -107,3 +107,46 @@ class GenerationLogRead(BaseModel):
     output_filename: str | None = None
     error_message: str | None = None
     model_config = ConfigDict(from_attributes=True)
+
+
+# --- Генерация паспортов (PR #2) ---
+class PassportGenerateRequest(BaseModel):
+    product_id: int = Field(..., description="ID изделия из каталога")
+    template_id: int = Field(..., description="ID шаблона DOCX")
+
+
+class PassportGenerateResponse(BaseModel):
+    log_id: int = Field(..., description="ID записи в журнале генераций")
+    product_id: int
+    template_id: int
+    status: str = Field(..., description="Статус генерации (success/failed)")
+    output_filename: str | None = None
+    download_url: str | None = None
+    reused: bool = Field(
+        False,
+        description="Флаг дедупликации: true, если файл взят из кэша за последние 10 мин",
+    )
+    message: str = Field(..., description="Понятное пояснение результата для пользователя")
+
+
+# --- Аналитика (PR #2) ---
+class AnalyticsOverview(BaseModel):
+    total_generations: int
+    success_count: int
+    failed_count: int
+    success_rate_percent: float
+
+
+class PopularProductStat(BaseModel):
+    product_id: int
+    sku: str
+    name: str
+    generation_count: int
+
+
+class TemplateStat(BaseModel):
+    template_id: int
+    template_name: str
+    total_runs: int
+    success_runs: int
+    failed_runs: int

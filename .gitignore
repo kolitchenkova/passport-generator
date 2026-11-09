@@ -5,6 +5,7 @@ venv/
 # Кэш Python
 __pycache__/
 *.py[cod]
+*.pyc
 
 # Секреты и локальные переменные
 .env

@@ -1,10 +1,14 @@
 from .schemas import (
+    AnalyticsOverview,
     CategoryCreate,
     CategoryRead,
     CategoryUpdate,
     GenerationLogRead,
     ParameterCreate,
     ParameterRead,
+    PassportGenerateRequest,
+    PassportGenerateResponse,
+    PopularProductStat,
     ProductCreate,
     ProductDetailRead,
     ProductParameterRead,
@@ -13,6 +17,7 @@ from .schemas import (
     ProductUpdate,
     TemplateCreate,
     TemplateRead,
+    TemplateStat,
 )
 
 __all__ = [
@@ -30,4 +35,9 @@ __all__ = [
     "TemplateCreate",
     "TemplateRead",
     "GenerationLogRead",
+    "PassportGenerateRequest",
+    "PassportGenerateResponse",
+    "AnalyticsOverview",
+    "PopularProductStat",
+    "TemplateStat",
 ]
