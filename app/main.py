@@ -1,8 +1,10 @@
 import logging
 import time
+from pathlib import Path
 
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.api import analytics, categories, parameters, passports, products, templates
 from app.core.config import settings
@@ -45,13 +47,24 @@ app.include_router(templates.router, prefix="/api/v1")
 app.include_router(passports.router, prefix="/api/v1")
 app.include_router(analytics.router, prefix="/api/v1")
 
+# Монтирование статических файлов
+static_dir = Path("app/static")
+static_dir.mkdir(parents=True, exist_ok=True)
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
 
 @app.get("/", include_in_schema=False)
 async def root():
-    return JSONResponse(
-        content={
-            "service": settings.PROJECT_NAME,
-            "status": "online",
-            "docs_url": "/docs",
-        }
-    )
+    """Главная страница — веб-интерфейс генерации паспортов."""
+    return FileResponse("app/static/index.html")
+
+
+# @app.get("/", include_in_schema=False)
+##async def root():
+##   return JSONResponse(
+##      content={
+##          "service": settings.PROJECT_NAME,
+##         "status": "online",
+##        "docs_url": "/docs",
+##      }
+##  )

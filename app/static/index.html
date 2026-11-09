@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор паспортов изделий</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <span class="logo-icon">📄</span>
+                <span class="logo-text">ПаспортГенератор</span>
+            </div>
+            <div class="nav-links">
+                <a href="/docs" target="_blank" class="nav-link">Swagger API</a>
+                <span class="badge badge-success">Online</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        <!-- Блок аналитики / Статистика сервиса -->
+        <section class="card stats-banner" id="stats-banner">
+            <div class="stat-item">
+                <div class="stat-value" id="stat-total">0</div>
+                <div class="stat-label">Всего генераций</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value text-success" id="stat-success">0</div>
+                <div class="stat-label">Успешных</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value text-danger" id="stat-failed">0</div>
+                <div class="stat-label">Ошибок аудита</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value text-primary" id="stat-rate">0%</div>
+                <div class="stat-label">% успешности</div>
+            </div>
+        </section>
+
+        <div class="grid-layout">
+            <!-- Левая колонка: Форма генерации и Результат -->
+            <div class="column">
+                <section class="card form-card">
+                    <h2 class="card-title">Сформировать паспорт DOCX</h2>
+                    <p class="card-desc">Выберите изделие из каталога и шаблон оформления для генерации технического паспорта.</p>
+
+                    <form id="generate-form">
+                        <div class="form-group">
+                            <label for="product-select">Изделие:</label>
+                            <select id="product-select" class="form-control" required>
+                                <option value="">-- Загрузка изделий... --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="template-select">Шаблон оформления:</label>
+                            <select id="template-select" class="form-control" required>
+                                <option value="">-- Загрузка шаблонов... --</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="btn btn-primary btn-block">
+                            <span class="btn-text">Сгенерировать документ</span>
+                            <span class="spinner hidden" id="btn-spinner"></span>
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Карточка результата генерации (изначально скрыта) -->
+                <section class="card result-card hidden" id="result-card">
+                    <div class="result-header">
+                        <h3 id="result-title">Результат генерации</h3>
+                        <span class="badge" id="result-badge">Статус</span>
+                    </div>
+
+                    <div class="result-body" id="result-body">
+                        <!-- Динамический контент результата -->
+                    </div>
+
+                    <div class="result-actions" id="result-actions">
+                        <a href="#" id="download-link" class="btn btn-success btn-block" target="_blank">
+                            📥 Скачать паспорт (.docx)
+                        </a>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Правая колонка: Каталог изделий с фильтром -->
+            <div class="column">
+                <section class="card catalog-card">
+                    <div class="catalog-header">
+                        <h2 class="card-title">Каталог оборудования</h2>
+                        <div class="filter-box">
+                            <select id="category-filter" class="form-control form-control-sm">
+                                <option value="">Все категории</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table" id="products-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Артикул (SKU)</th>
+                                    <th>Наименование</th>
+                                    <th>Действие</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-tbody">
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted">Загрузка данных каталога...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <p>© 2026 Информационная система генерации паспортов изделий по шаблонам DOCX.</p>
+            <p class="text-muted">FastAPI · PostgreSQL · SQLAlchemy 2.0 · python-docx</p>
+        </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
